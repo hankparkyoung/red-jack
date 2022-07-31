@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Action } from './constants';
 import { drawCard, correctAction } from './utils';
 import { Guess } from './Guess';
+import { Check } from './Check';
 
 const App = () => {
 
@@ -11,14 +12,25 @@ const App = () => {
   const [guess, setGuess] = useState();
   const [answer, setAnswer] = useState();
   const [revealed, setRevealed] = useState(false);
+  const [correct, setCorrect] = useState(0);
+  const [incorrect, setIncorrect] = useState(0);
 
   useEffect(() => {
     setAnswer(correctAction(dealer, player));
   }, [dealer, player])
 
+  const onCheck = () => {
+    setRevealed(true);
+    guess === answer ? setCorrect(correct + 1) : setIncorrect(incorrect + 1);
+  }
+
   return (
     <div>
       <h1>Red Jack</h1>
+      <div>
+        <p>{`Correct: ${correct}`}</p>
+        <p>{`Incorrect: ${incorrect}`}</p>
+      </div>
       <div>
         <p>{`Dealer: ${dealer}`}</p>
         <p>{`Player: ${player[0]}, ${player[1]}`}</p>
@@ -35,14 +47,7 @@ const App = () => {
         <p>{`Correct Action: ${answer}`}</p>
       }
       <div>
-        <button
-          type='button'
-          onClick={() => {
-            setRevealed(true);
-          }}
-        >
-          Check
-        </button>
+        {Check(onCheck)}
         <button
           type='button'
           onClick={() => {
