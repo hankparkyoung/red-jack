@@ -1,4 +1,4 @@
-export const Guess = (action, onGuess) => (
+export const Guess = ({action, onGuess}) => (
   <button
     type='button'
     onClick={() => onGuess(action)}

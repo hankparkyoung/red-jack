@@ -36,9 +36,12 @@ const App = () => {
         <p>{`Player: ${player[0]}, ${player[1]}`}</p>
       </div>
       <div>
-        {actions.map(action => {
-          return Guess(action, setGuess);
-        })}
+        {actions.map(action => (
+          <Guess
+            action={action}
+            onGuess={setGuess}
+          />
+        ))}
       </div>
       {guess &&
         <p>{`Your guess: ${guess}`}</p>
@@ -47,7 +50,7 @@ const App = () => {
         <p>{`Correct Action: ${answer}`}</p>
       }
       <div>
-        {Check(onCheck)}
+        <Check onCheck={onCheck} />
         <button
           type='button'
           onClick={() => {

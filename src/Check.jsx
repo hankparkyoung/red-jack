@@ -1,4 +1,4 @@
-export const Check = (onCheck) => (
+export const Check = ({onCheck}) => (
   <button
     type='button'
     onClick={() => onCheck()}
