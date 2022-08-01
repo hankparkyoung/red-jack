@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Option } from '../constants';
-import { drawCard, correctAction } from '../utils';
+import {
+  drawCard,
+  canSplit,
+  isSoft,
+  playerTotal,
+  toNumber,
+  correctAction,
+  isDisabled,
+} from '../utils';
 import { Action } from '../components/Action';
 import { Check } from '../components/Check';
 
@@ -16,7 +24,16 @@ const Practice = () => {
   const [incorrect, setIncorrect] = useState(0);
 
   useEffect(() => {
-    setAnswer(correctAction(dealer, player));
+    if (playerTotal(player) === 21) { // ignore blackjacks in practice
+      setDealer(drawCard());
+      setPlayer([drawCard(), drawCard()]);
+    };
+    setAnswer(correctAction(
+      toNumber(dealer),
+      playerTotal(player),
+      isSoft(player),
+      canSplit(player),
+    ));
   }, [dealer, player])
 
   const onCheck = () => {
@@ -40,6 +57,7 @@ const Practice = () => {
           <Action
             option={option}
             onAction={setGuess}
+            disabled={isDisabled(option, player)}
           />
         ))}
       </div>

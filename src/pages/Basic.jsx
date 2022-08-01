@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Option } from '../constants';
 import { drawCard } from '../utils';
 
 const Basic = () => {
 
-  const actions = Object.values(Option);
+  const options = Object.values(Option);
   const [bank, setBank] = useState(1000);
   const [dealer, setDealer] = useState(drawCard());
   const [player, setPlayer] = useState([drawCard(), drawCard()]);
