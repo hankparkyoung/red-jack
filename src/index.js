@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import Practice from './Practice';
+import Practice from './pages/Practice';
+import Basic from './pages/Basic';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +16,7 @@ root.render(
     <Routes>
       <Route exact path='/' element={<App />}>
         <Route path='/practice' element={<Practice />} />
+        <Route path='/basic' element={<Basic />} />
       </Route>
     </Routes>
   </BrowserRouter>

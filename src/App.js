@@ -17,6 +17,11 @@ const App = () => {
           Practice
         </NavLink>
       </li>
+      <li>
+        <NavLink to='basic'>
+          Basic
+        </NavLink>
+      </li>
     </ul>
     </div>
     <Outlet />

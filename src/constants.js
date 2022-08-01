@@ -1,4 +1,4 @@
-export const Action = {
+export const Option = {
   Split: 'Split',
   Double: 'Double',
   Hit: 'Hit',

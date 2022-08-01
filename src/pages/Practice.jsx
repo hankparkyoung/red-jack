@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Action } from './constants';
-import { drawCard, correctAction } from './utils';
-import { Guess } from './Guess';
-import { Check } from './Check';
+import { Option } from '../constants';
+import { drawCard, correctAction } from '../utils';
+import { Action } from '../components/Action';
+import { Check } from '../components/Check';
 
 const Practice = () => {
 
-  const actions = Object.values(Action);
+  const options = Object.values(Option);
   const [dealer, setDealer] = useState(drawCard());
   const [player, setPlayer] = useState([drawCard(), drawCard()]);
   const [guess, setGuess] = useState();
@@ -26,19 +26,20 @@ const Practice = () => {
 
   return (
     <div>
+      <h3>Practice</h3>
       <div>
         <p>{`Correct: ${correct}`}</p>
         <p>{`Incorrect: ${incorrect}`}</p>
       </div>
       <div>
         <p>{`Dealer: ${dealer}`}</p>
-        <p>{`Player: ${player[0]}, ${player[1]}`}</p>
+        <p>{`Player: ${player[0]},${player[1]}`}</p>
       </div>
       <div>
-        {actions.map(action => (
-          <Guess
-            action={action}
-            onGuess={setGuess}
+        {options.map(option => (
+          <Action
+            option={option}
+            onAction={setGuess}
           />
         ))}
       </div>
