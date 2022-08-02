@@ -13,9 +13,14 @@ export const isSoft = player => {
 };
 
 export const playerTotal = player => {
-  return player.reduce((total, card) => {
+  const preTotal = player.reduce((total, card) => {
     return total + toNumber(card);
   }, 0);
+
+  if (isSoft(player) && preTotal > 21 && !canSplit(player)) {
+    return preTotal - 10;
+  }
+  return preTotal;
 };
 
 export const toNumber = card => {
