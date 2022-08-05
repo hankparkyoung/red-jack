@@ -1,13 +1,5 @@
 import { Option, Cards } from './constants';
 
-// drawCard: returns a random card from A-K (A as 11)
-// canSplit: returns true if can split
-// isSoft: returns true if player card array has "A"
-// playerTotal: returns player total
-// toNumber: returns number from card value (1-10)
-// correctAction: returns Option.Action given dealer, playerTotal, isSoft, canSplit
-// isDisabled: returns true if action is not allowed
-
 export const drawCard = () => {
   return Cards[Math.floor(Math.random() * Cards.length)];
 };
