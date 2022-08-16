@@ -1,7 +1,7 @@
-// player 16 vs. dealer A. should hit but gave answer stand
 import React, { useState, useEffect } from 'react';
 import { Option } from '../constants';
 import {
+  toNumber,
   correctAction,
   isDisabled,
 } from '../utils';
@@ -25,7 +25,7 @@ const Practice = () => {
       setDealer(new Hand());
       setPlayer(new Hand());
     };
-    setAnswer(correctAction(dealer, player));
+    setAnswer(correctAction(toNumber(dealer.cards[0]), player));
   }, [dealer, player])
 
   const onCheck = () => {

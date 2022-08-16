@@ -1,6 +1,16 @@
 import { Option } from './constants';
 
-export const correctAction = (dealer, player) => {
+export const toNumber = card => {
+  if (card === 'A') {
+    return 11;
+  }
+  if (card === 'K' || card === 'Q' || card === 'J') {
+    return 10;
+  }
+  return parseInt(card);
+};
+
+export const correctAction = (dealer, player) => { // dealer num and player Hand obj
 
   if (player.canSplit()) { // splits
 
@@ -8,7 +18,7 @@ export const correctAction = (dealer, player) => {
       return Option.Split;
     }
     if (player.total() === 18) {
-      if (dealer.cards[0] < 10 && dealer.cards[0] !== 7) {
+      if (dealer < 10 && dealer !== 7) {
         return Option.Split;
       }
     }
@@ -16,17 +26,17 @@ export const correctAction = (dealer, player) => {
       return Option.Split;
     }
     if (player.total() === 14 || player.total() === 6 || player.total() === 4) {
-      if (dealer.cards[0] < 8) {
+      if (dealer < 8) {
         return Option.Split;
       }
     }
     if (player.total() === 12) {
-      if (dealer.cards[0] < 7) {
+      if (dealer < 7) {
         return Option.Split;
       }
     }
     if (player.total() === 8) {
-      if (dealer.cards[0] === 5 || dealer.cards[0] === 6) {
+      if (dealer === 5 || dealer === 6) {
         return Option.Split;
       }
     }
@@ -38,24 +48,24 @@ export const correctAction = (dealer, player) => {
       return Option.Stand;
     }
     if (player.total() === 19) {
-      return dealer.cards[0] === 6 ? Option.Double : Option.Stand;
+      return dealer === 6 ? Option.Double : Option.Stand;
     }
     if (player.total() === 18) {
-      if (dealer.cards[0] > 1 && dealer.cards[0] < 7) {
+      if (dealer > 1 && dealer < 7) {
         return Option.Double;
       }
-      if (dealer.cards[0] === 7 || dealer.cards[0] === 8) {
+      if (dealer === 7 || dealer === 8) {
         return Option.Stand;
       }
       return Option.Hit;
     }
     if (player.total() === 17) {
-      return dealer.cards[0] > 2 && dealer.cards[0] < 7 ? Option.Double : Option.Hit;
+      return dealer > 2 && dealer < 7 ? Option.Double : Option.Hit;
     }
     if (player.total() === 16 || player.total() === 15) {
-      return dealer.cards[0] > 3 && dealer.cards[0] < 7 ? Option.Double : Option.Hit;
+      return dealer > 3 && dealer < 7 ? Option.Double : Option.Hit;
     }
-    return dealer.cards[0] === 6 || dealer.cards[0] === 5 ? Option.Double : Option.Hit;
+    return dealer === 6 || dealer === 5 ? Option.Double : Option.Hit;
   }
 
   // non-soft totals
@@ -63,10 +73,10 @@ export const correctAction = (dealer, player) => {
     return Option.Stand;
   }
   if (player.total() > 12) {
-    return dealer.cards[0] > 6 ? Option.Hit : Option.Stand;
+    return dealer > 6 ? Option.Hit : Option.Stand;
   }
   if (player.total() === 12) {
-    if (dealer.cards[0] > 3 && dealer.cards[0] < 7) {
+    if (dealer > 3 && dealer < 7) {
       return Option.Stand;
     }
     return Option.Hit;
@@ -75,10 +85,10 @@ export const correctAction = (dealer, player) => {
     return Option.Double;
   }
   if (player.total() === 10) {
-    return dealer.cards[0] < 10 ? Option.Double : Option.Hit;
+    return dealer < 10 ? Option.Double : Option.Hit;
   }
   if (player.total() === 9) {
-    if (dealer.cards[0] > 2 && dealer.cards[0] < 7) {
+    if (dealer > 2 && dealer < 7) {
       return Option.Double;
     }
   }

@@ -1,4 +1,5 @@
 import { drawCard } from './constants';
+import { toNumber } from './utils';
 
 export function Hand() {
   this.cards = [drawCard(), drawCard()];
@@ -6,15 +7,7 @@ export function Hand() {
     return this.cards.length === 2 && this.total() === 21;
   };
   this.canSplit = () => {
-    const numCards = this.cards.map(card => {
-      if (card === 'A') {
-        return 11;
-      }
-      if (card === 'K' || card === 'Q' || card === 'J') {
-        return 10;
-      }
-      return parseInt(card);
-    })
+    const numCards = this.cards.map(card => toNumber(card));
     return this.cards.length === 2 && numCards[0] === numCards[1];
   };
   this.isSoft = () => {
