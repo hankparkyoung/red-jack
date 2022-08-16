@@ -1,121 +1,84 @@
-import { Option, Cards } from './constants';
+import { Option } from './constants';
 
-export const drawCard = () => {
-  return Cards[Math.floor(Math.random() * Cards.length)];
-};
+export const correctAction = (dealer, player) => {
 
-export const canSplit = player => {
-  return player.length === 2 && player[0] === player[1];
-};
+  if (player.canSplit()) { // splits
 
-export const isSoft = player => {
-  return player.some(card => card === 'A');
-};
-
-export const playerTotal = player => {
-  const preTotal = player.reduce((total, card) => {
-    return total + toNumber(card);
-  }, 0);
-
-  if (isSoft(player) && preTotal > 21) {
-    return preTotal - 10;
-  }
-  return preTotal;
-};
-
-export const toNumber = card => {
-  if (card === 'A') {
-    return 11;
-  }
-  if (card === 'J' || card === 'Q' || card === 'K') {
-    return 10;
-  }
-  if (parseInt(card) < 11 && parseInt(card) > 1) {
-    return parseInt(card);
-  }
-  console.error('Invalid card.', card);
-  return null;
-};
-
-export const correctAction = (dealer, player, isSoft, canSplit) => {
-
-  if (canSplit) { // splits
-
-    if (player === 12) { // Aces
+    if (player.total() === 12) { // Aces
       return Option.Split;
     }
-    if (player === 18) {
-      if (dealer < 10 && dealer !== 7) {
+    if (player.total() === 18) {
+      if (dealer.cards[0] < 10 && dealer.cards[0] !== 7) {
         return Option.Split;
       }
     }
-    if (player === 16) {
+    if (player.total() === 16) {
       return Option.Split;
     }
-    if (player === 14 || player === 6 || player === 4) {
-      if (dealer < 8) {
+    if (player.total() === 14 || player.total() === 6 || player.total() === 4) {
+      if (dealer.cards[0] < 8) {
         return Option.Split;
       }
     }
-    if (player === 12) {
-      if (dealer < 7) {
+    if (player.total() === 12) {
+      if (dealer.cards[0] < 7) {
         return Option.Split;
       }
     }
-    if (player === 8) {
-      if (dealer === 5 || dealer === 6) {
+    if (player.total() === 8) {
+      if (dealer.cards[0] === 5 || dealer.cards[0] === 6) {
         return Option.Split;
       }
     }
   }
 
-  if (isSoft) { // any soft totals (has an Ace)
+  if (player.isSoft()) { // any soft totals (has an Ace)
 
-    if (player === 21 || player === 20) {
+    if (player.total() === 21 || player.total() === 20) {
       return Option.Stand;
     }
-    if (player === 19) {
-      return dealer === 6 ? Option.Double : Option.Stand;
+    if (player.total() === 19) {
+      return dealer.cards[0] === 6 ? Option.Double : Option.Stand;
     }
-    if (player === 18) {
-      if (dealer > 1 && dealer < 7) {
+    if (player.total() === 18) {
+      if (dealer.cards[0] > 1 && dealer.cards[0] < 7) {
         return Option.Double;
       }
-      if (dealer === 7 || dealer === 8) {
+      if (dealer.cards[0] === 7 || dealer.cards[0] === 8) {
         return Option.Stand;
       }
       return Option.Hit;
     }
-    if (player === 17) {
-      return dealer > 2 && dealer < 7 ? Option.Double : Option.Hit;
+    if (player.total() === 17) {
+      return dealer.cards[0] > 2 && dealer.cards[0] < 7 ? Option.Double : Option.Hit;
     }
-    if (player === 16 || player === 15) {
-      return dealer > 3 && dealer < 7 ? Option.Double : Option.Hit;
+    if (player.total() === 16 || player.total() === 15) {
+      return dealer.cards[0] > 3 && dealer.cards[0] < 7 ? Option.Double : Option.Hit;
     }
-    return dealer === 6 || dealer === 5 ? Option.Double : Option.Hit;
+    return dealer.cards[0] === 6 || dealer.cards[0] === 5 ? Option.Double : Option.Hit;
   }
 
   // non-soft totals
-  if (player > 16) {
+  if (player.total() > 16) {
     return Option.Stand;
   }
-  if (player > 12) {
-    return dealer > 6 ? Option.Hit : Option.Stand;
+  if (player.total() > 12) {
+    return dealer.cards[0] > 6 ? Option.Hit : Option.Stand;
   }
-  if (player === 12) {
-    if (dealer > 3 && dealer < 7) {
+  if (player.total() === 12) {
+    if (dealer.cards[0] > 3 && dealer.cards[0] < 7) {
       return Option.Stand;
     }
     return Option.Hit;
   }
-  if (player === 11) {
+  if (player.total() === 11) {
     return Option.Double;
   }
-  if (player === 10) {
-    return dealer < 10 ? Option.Double : Option.Hit;
+  if (player.total() === 10) {
+    return dealer.cards[0] < 10 ? Option.Double : Option.Hit;
   }
-  if (player === 9) {
-    if (dealer > 2 && dealer < 7) {
+  if (player.total() === 9) {
+    if (dealer.cards[0] > 2 && dealer.cards[0] < 7) {
       return Option.Double;
     }
   }
@@ -125,14 +88,11 @@ export const correctAction = (dealer, player, isSoft, canSplit) => {
 };
 
 export const isDisabled = (option, player) => {
-  if (playerTotal(player) > 20) {
-    return !canSplit(player);
-  }
-  if (option === Option.Split) {
-    return player.length === 2 && player[0] !== player[1];
+  if (player.total() > 20 || option === Option.Split) {
+    return !player.canSplit();
   }
   if (option === Option.Double) {
-    return player.length !== 2;
+    return player.cards.length !== 2;
   }
   return false;
 };

@@ -1,22 +1,19 @@
+// player 16 vs. dealer A. should hit but gave answer stand
 import React, { useState, useEffect } from 'react';
 import { Option } from '../constants';
 import {
-  drawCard,
-  canSplit,
-  isSoft,
-  playerTotal,
-  toNumber,
   correctAction,
   isDisabled,
 } from '../utils';
+import { Hand } from '../Hand';
 import { Action } from '../components/Action';
 import { Check } from '../components/Check';
 
 const Practice = () => {
 
   const options = Object.values(Option);
-  const [dealer, setDealer] = useState(drawCard());
-  const [player, setPlayer] = useState([drawCard(), drawCard()]);
+  const [dealer, setDealer] = useState(new Hand());
+  const [player, setPlayer] = useState(new Hand());
   const [guess, setGuess] = useState();
   const [answer, setAnswer] = useState();
   const [revealed, setRevealed] = useState(false);
@@ -24,16 +21,11 @@ const Practice = () => {
   const [incorrect, setIncorrect] = useState(0);
 
   useEffect(() => {
-    if (playerTotal(player) === 21) { // ignore blackjacks in practice
-      setDealer(drawCard());
-      setPlayer([drawCard(), drawCard()]);
+    if (player.total() === 21) { // ignore blackjacks in practice
+      setDealer(new Hand());
+      setPlayer(new Hand());
     };
-    setAnswer(correctAction(
-      toNumber(dealer),
-      playerTotal(player),
-      isSoft(player),
-      canSplit(player),
-    ));
+    setAnswer(correctAction(dealer, player));
   }, [dealer, player])
 
   const onCheck = () => {
@@ -49,8 +41,8 @@ const Practice = () => {
         <p>{`Incorrect: ${incorrect}`}</p>
       </div>
       <div>
-        <p>{`Dealer: ${dealer}`}</p>
-        <p>{`Player: ${player[0]},${player[1]}`}</p>
+        <p>{`Dealer: ${dealer.cards[0]}`}</p>
+        <p>{`Player: ${player.cards[0]}, ${player.cards[1]}`}</p>
       </div>
       <div>
         {options.map(option => (
@@ -72,8 +64,8 @@ const Practice = () => {
         <button
           type='button'
           onClick={() => {
-            setDealer(drawCard());
-            setPlayer([drawCard(), drawCard()]);
+            setDealer(new Hand());
+            setPlayer(new Hand());
             setGuess(null);
             setRevealed(false);
           }}
