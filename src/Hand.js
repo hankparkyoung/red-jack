@@ -6,7 +6,16 @@ export function Hand() {
     return this.cards.length === 2 && this.total() === 21;
   };
   this.canSplit = () => {
-    return this.cards.length === 2 && this.cards[0] === this.cards[1];
+    const numCards = this.cards.map(card => {
+      if (card === 'A') {
+        return 11;
+      }
+      if (card === 'K' || card === 'Q' || card === 'J') {
+        return 10;
+      }
+      return parseInt(card);
+    })
+    return this.cards.length === 2 && numCards[0] === numCards[1];
   };
   this.isSoft = () => {
     return this.cards.some(card => card === 'A');
