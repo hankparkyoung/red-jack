@@ -47,6 +47,7 @@ const Practice = () => {
       <div>
         {options.map(option => (
           <Action
+            key={option}
             option={option}
             onAction={setGuess}
             disabled={isDisabled(option, player)}
