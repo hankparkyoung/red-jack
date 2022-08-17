@@ -35,7 +35,7 @@ const Practice = () => {
 
   return (
     <div>
-      <h3>Practice</h3>
+      <h3>Red Jack</h3>
       <div>
         <p>{`Correct: ${correct}`}</p>
         <p>{`Incorrect: ${incorrect}`}</p>
