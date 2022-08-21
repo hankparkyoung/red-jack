@@ -9,6 +9,8 @@ import { Hand } from '../Hand';
 import { Action } from '../components/Action';
 import { Check } from '../components/Check';
 
+import './Practice.scss';
+
 const Practice = () => {
 
   const options = Object.values(Option);
@@ -34,17 +36,36 @@ const Practice = () => {
   }
 
   return (
-    <div>
-      <h3>Red Jack</h3>
-      <div>
-        <p>{`Correct: ${correct}`}</p>
-        <p>{`Incorrect: ${incorrect}`}</p>
+    <div className='app'>
+
+      <div className='header'>
+        <h3 className='header__title'>Red Jack</h3>
+        <p className='header__description'>A game of blackjack where only the correct action matters.</p>
       </div>
-      <div>
-        <p>{`Dealer: ${dealer.cards[0]}`}</p>
-        <p>{`Player: ${player.cards[0]}, ${player.cards[1]}`}</p>
+
+      <div className='scoreboard'>
+        <div className='scoreboard__score'>
+          <p className='scoreboard__text'>Correct</p>
+          <p className='scoreboard__number'>{`${correct}`}</p>
+        </div>
+        <div className='scoreboard__score'>
+          <p className='scoreboard__text'>Incorrect</p>
+          <p className='scoreboard__number'>{`${incorrect}`}</p>
+        </div>
       </div>
-      <div>
+
+      <div className='cards'>
+        <div className='cards__hand'>
+          <p className='cards__text'>Dealer</p>
+          <p className='cards__img'>{`${dealer.cards[0]}`}</p>
+        </div>
+        <div className='cards__hand'>
+          <p className='cards__text'>Player</p>
+          <p className='cards__img'>{`${player.cards[0]}, ${player.cards[1]}`}</p>
+        </div>
+      </div>
+
+      <div className='actions'>
         {options.map(option => (
           <Action
             key={option}
@@ -54,15 +75,26 @@ const Practice = () => {
           />
         ))}
       </div>
-      {guess &&
-        <p>{`Your guess: ${guess}`}</p>
-      }
-      {revealed &&
-        <p>{`Correct Action: ${answer}`}</p>
-      }
-      <div>
+
+      <div className='answers'>
+        <div className='answers__info'>
+          <p className='answers__text'>Your Guess</p>
+          {guess &&
+            <p className='answers__reveal'>{`${guess}`}</p>
+          }
+        </div>
+        <div className='answers__info'>
+          <p className='answers__text'>Correct Answer</p>
+          {revealed &&
+            <p className='answers__reveal'>{`${answer}`}</p>
+          }
+        </div>
+      </div>
+
+      <div className='actions'>
         <Check onCheck={onCheck} />
         <button
+          className='action'
           type='button'
           onClick={() => {
             setDealer(new Hand());

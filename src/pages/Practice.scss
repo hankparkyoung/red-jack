@@ -1,0 +1,135 @@
+$section-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+$primary: #E6E8E6;
+$background: #191919;
+$section: #343434;
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $background;
+  color: $primary;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 8px 8px 16px 8px;
+  padding: 16px;
+  background-color: $section;
+  border-radius: 4px;
+  box-shadow: $section-shadow;
+
+  &__title {
+    font-size: 4rem;
+    margin: 0;
+  }
+
+  &__description {
+    font-size: 1rem;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 8px 16px 8px;
+  padding: 16px;
+  background-color: $section;
+  border-radius: 4px;
+  box-shadow: $section-shadow;
+
+  &__score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 8px;
+  }
+
+  &__text {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  &__number {
+    margin: 0;
+  }
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 8px 16px 8px;
+  padding: 16px 26px 16px 19px;
+  background-color: $section;
+  border-radius: 4px;
+  box-shadow: $section-shadow;
+
+  &__hand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 8px;
+  }
+
+  &__text {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  &__img {
+    margin: 0;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin: 0 8px 16px 8px;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 8px 16px 8px;
+  padding: 16px;
+  background-color: $section;
+  border-radius: 4px;
+  box-shadow: $section-shadow;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 48px;
+  }
+
+  &__text {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  &__reveal {
+    margin: 0;
+  }
+}
+
+.actions {
+  display: flex;
+  margin: 0 8px 16px 8px;
+  padding: 16px;
+  background-color: $section;
+  border-radius: 4px;
+  box-shadow: $section-shadow;
+}

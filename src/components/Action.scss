@@ -1,0 +1,23 @@
+$button-shadow: rgba(142, 139, 139, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+$primary: #DFDFDF;
+$hover-shadow: rgba(17, 17, 32, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+.action {
+  background-color: $primary;
+  border-width: 1px;
+  border-color: #9D8189;
+  border-radius: 2px;
+  width: 72px;
+  padding: 8px 0;
+  margin: 0 4px;
+  box-sizing: border-box;
+  box-shadow: $button-shadow;
+
+  &:hover {
+    box-shadow: $hover-shadow;
+  }
+
+  &:disabled {
+    box-shadow: unset;
+  }
+}
