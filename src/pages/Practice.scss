@@ -13,7 +13,9 @@ html, body {
 .app {
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100vh;
+  // width: 320px;
   background-color: $background;
   color: $primary;
 }
@@ -22,6 +24,8 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 320px;
+  box-sizing: border-box;
   margin: 8px 8px 16px 8px;
   padding: 16px;
   background-color: $section;
@@ -43,6 +47,8 @@ html, body {
 .scoreboard {
   display: flex;
   justify-content: space-between;
+  width: 320px;
+  box-sizing: border-box;
   margin: 0 8px 16px 8px;
   padding: 16px;
   background-color: $section;
@@ -69,6 +75,8 @@ html, body {
 .cards {
   display: flex;
   justify-content: space-between;
+  width: 320px;
+  box-sizing: border-box;
   margin: 0 8px 16px 8px;
   padding: 16px 26px 16px 19px;
   background-color: $section;
@@ -95,6 +103,8 @@ html, body {
 .actions {
   display: flex;
   justify-content: center;
+  width: 320px;
+  box-sizing: border-box;
   margin: 0 8px 16px 8px;
 }
 
@@ -102,6 +112,8 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 320px;
+  box-sizing: border-box;
   margin: 0 8px 16px 8px;
   padding: 16px;
   background-color: $section;
@@ -127,6 +139,8 @@ html, body {
 
 .actions {
   display: flex;
+  width: 320px;
+  box-sizing: border-box;
   margin: 0 8px 16px 8px;
   padding: 16px;
   background-color: $section;
